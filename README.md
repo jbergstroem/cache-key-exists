@@ -27,7 +27,7 @@ jobs:
       - uses: jbergstroem/cache-exists@v1
         id: cache_exists
         with:
-          key: ${{ runner.os }}-node-deps-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install dependencies
         if: steps.cache_exists.outputs.cache-hit !== 'true'
@@ -51,7 +51,7 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 - uses: jbergstroem/cache-exists@v1
   id: cache_exists
   with:
-    key: ${{ runner.os }}-node-deps-${{ hashFiles('**/pnpm-lock.yaml') }}
+    key: ${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}
 ```
 
 `steps.cache_exists.outputs.cache-hit` now is either `true` or `false`
@@ -61,7 +61,7 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 The core of this action is more or less a curl one-liner - feel free to use this directly:
 
 ```shell
-export KEY="${{ runner.os }}-node-deps-${{ hashFiles('package-lock.json') }}"
+export KEY="${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}"
 curl -s \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
