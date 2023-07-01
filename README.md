@@ -1,4 +1,4 @@
-# cache-exists
+# cache-key-exists
 
 Peek into the Github action cache and see if a certain key exists.
 
@@ -24,13 +24,13 @@ jobs:
     name: Run tests
     steps:
       - uses: actions/checkout@v3
-      - uses: jbergstroem/cache-exists@v1
-        id: cache_exists
+      - uses: jbergstroem/cache-key-exists@v1
+        id: cache_key_exists
         with:
           key: ${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install dependencies
-        if: steps.cache_exists.outputs.cache-hit !== 'true'
+        if: steps.cache_key_exists.outputs.cache-hit !== 'true'
         run: pnpm ci
 ```
 
@@ -48,13 +48,13 @@ jobs:
 You can use the output `cache-hit` to check if the key exists in the cache:
 
 ```yaml
-- uses: jbergstroem/cache-exists@v1
-  id: cache_exists
+- uses: jbergstroem/cache-key-exists@v1
+  id: cache_key_exists
   with:
     key: ${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}
 ```
 
-`steps.cache_exists.outputs.cache-hit` now is either `true` or `false`
+`steps.cache_key_exists.outputs.cache-hit` now is either `true` or `false`
 
 ## Under the hood
 
