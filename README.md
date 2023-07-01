@@ -56,10 +56,10 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 
 ## Development
 
-This action is written in [Bash 4][bash]. It additionally uses [curl][curl] and [jq][jq]. For
+This action is written in [Bash][bash] (needs 4 or later). It additionally uses [curl][curl] and [jq][jq]. For
 testing and validation purposes, [bash_unit][bash_unit], [shellcheck][shellcheck], [actionlint][actionlint] and [typos][typos] is also required.
 
-If you're using [homebrew][brew], here's a oneliner:
+If you're using [Homebrew][brew], here's a oneliner:
 
 ```shell
 brew install bash curl jq bash_unit shellcheck actionlint typos-cli
