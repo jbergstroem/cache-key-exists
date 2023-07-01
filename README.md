@@ -34,12 +34,12 @@ jobs:
 
 ## Parameters
 
-| Variable   | Default                     | Description                                                             |
-| :--------- | :-------------------------- | :---------------------------------------------------------------------- |
-| key        |                             | **Required:** a string that represents your cache key (`**/Dockerfile`) |
+| Variable   | Default                       | Description                                                             |
+| :--------- | :---------------------------- | :---------------------------------------------------------------------- |
+| key        |                               | **Required:** a string that represents your cache key (`**/Dockerfile`) |
 | token      | `${{ secrets.GITHUB_TOKEN }}` | Access token to use for api authentication                              |
 | repository | `${{ github.repository }}`    | The repository to use. Defaults to the current repository.              |
-| fail_exit  | fail                        | Fail the job if the key doesn't exist (`true`/`false`)                  |
+| fail_exit  | `false`                       | Fail the job if the key doesn't exist (`true`/`false`)                  |
 
 ## Output
 
@@ -68,6 +68,7 @@ brew install bash curl jq bash_unit shellcheck actionlint typos-cli
 ### Running tests
 
 Run unit tests with:
+
 ```shell
 bash_unit test/*.sh
 ```
