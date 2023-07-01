@@ -66,7 +66,7 @@ curl -s \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  "${{ github.api_url }}/repos/${{ github.repository }}/actions/caches"?key=${KEY}" \
+  "${{ github.api_url }}/repos/${{ github.repository }}/actions/caches?key=${KEY}" \
   | jq -r '"cache-hit=" + (.total_count > 0 | tostring)' >> "$GITHUB_OUTPUT"
 ```
 
