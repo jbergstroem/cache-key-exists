@@ -2,9 +2,23 @@
 
 Peek into the Github action cache and see if a certain key exists.
 
-The default behavior of [actions/cache][gh-cache] is to download the cache if it exists, then give you
-an output to test against. This action allows you to check if the key exists without
-downloading/restoring the content which saves you time.
+The default behavior of [actions/cache][gh-cache] is to download the cache if it exists and give you
+an output to test against. This action allows you to bypass the download/restore part and instantly
+return the result.
+
+The core of this action is more or less a curl one-liner - feel free to use this directly:
+```shell
+export KEY="${{ runner.os }}-node-deps-${{ hashFiles('package-lock.json') }}"
+curl -s \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  "${{ github.api_url }}/repos/${{ github.repository }}/actions/caches"?key=${KEY}" \
+  | jq -r '"cache-hit=" + (.total_count > 0 | tostring)' >> "$GITHUB_OUTPUT"
+```
+
+What this action helps with is proper input validation, shell usage and logging. See it as a
+more tested way of achieving the same as above.
 
 The output key is the same as [actions/cache][gh-cache] which makes this a drop in replacement/addition.
 
