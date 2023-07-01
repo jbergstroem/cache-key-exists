@@ -6,21 +6,9 @@ The default behavior of [actions/cache][gh-cache] is to download the cache if it
 an output to test against. This action allows you to bypass the download/restore part and instantly
 return the result.
 
-The core of this action is more or less a curl one-liner - feel free to use this directly:
-```shell
-export KEY="${{ runner.os }}-node-deps-${{ hashFiles('package-lock.json') }}"
-curl -s \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  "${{ github.api_url }}/repos/${{ github.repository }}/actions/caches"?key=${KEY}" \
-  | jq -r '"cache-hit=" + (.total_count > 0 | tostring)' >> "$GITHUB_OUTPUT"
-```
-
-What this action helps with is proper input validation, shell usage and logging. See it as a
-more tested way of achieving the same as above.
-
 The output key is the same as [actions/cache][gh-cache] which makes this a drop in replacement/addition.
+
+Licensed under [MIT][license].
 
 ## Usage
 
@@ -68,6 +56,22 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 
 `steps.cache_exists.outputs.cache-hit` now is either `true` or `false`
 
+## Under the hood
+
+The core of this action is more or less a curl one-liner - feel free to use this directly:
+```shell
+export KEY="${{ runner.os }}-node-deps-${{ hashFiles('package-lock.json') }}"
+curl -s \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  "${{ github.api_url }}/repos/${{ github.repository }}/actions/caches"?key=${KEY}" \
+  | jq -r '"cache-hit=" + (.total_count > 0 | tostring)' >> "$GITHUB_OUTPUT"
+```
+
+What this action helps with is proper input validation, shell usage and logging. See it as a
+more tested way of achieving the same as above.
+
 ## Development
 
 This action is written in [Bash][bash] (needs 4 or later). It additionally uses [curl][curl] and [jq][jq]. For
@@ -98,3 +102,4 @@ End to end tests are run in Github Actions.
 [actionlint]: https://github.com/rhysd/actionlint
 [typos]: https://crates.io/crates/typos-cli
 [brew]: https://brew.sh
+[license]: ./LICENSE
