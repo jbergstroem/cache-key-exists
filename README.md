@@ -36,12 +36,12 @@ jobs:
 
 ## Parameters
 
-| Variable   | Default                       | Description                                                             |
-| :--------- | :---------------------------- | :---------------------------------------------------------------------- |
-| key        |                               | **Required:** a string that represents your cache key (`**/Dockerfile`) |
-| token      | `${{ secrets.GITHUB_TOKEN }}` | Access token to use for api authentication                              |
-| repository | `${{ github.repository }}`    | The repository to use. Defaults to the current repository.              |
-| fail_exit  | `false`                       | Fail the job if the key doesn't exist (`true`/`false`)                  |
+| Variable   | Default                       | Description                                                     |
+| :--------- | :---------------------------- | :-------------------------------------------------------------- |
+| key        |                               | **Required:** a string that represents your cache key           |
+| token      | `${{ secrets.GITHUB_TOKEN }}` | Access token to use for api authentication                      |
+| repository | `${{ github.repository }}`    | What repository to use. Defaults to the current context      |
+| fail_exit  | `false`                       | Fail the job if the key doesn't exist in cache (`true`/`false`) |
 
 ## Output
 
@@ -59,6 +59,7 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 ## Under the hood
 
 The core of this action is more or less a curl one-liner - feel free to use this directly:
+
 ```shell
 export KEY="${{ runner.os }}-node-deps-${{ hashFiles('package-lock.json') }}"
 curl -s \
