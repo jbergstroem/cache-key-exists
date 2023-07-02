@@ -28,6 +28,8 @@ jobs:
         id: cache_key_exists
         with:
           key: ${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
 
       - name: Install dependencies
         if: steps.cache_key_exists.outputs.cache-hit !== 'true'
@@ -36,12 +38,12 @@ jobs:
 
 ## Parameters
 
-| Variable   | Default                       | Description                                                     |
-| :--------- | :---------------------------- | :-------------------------------------------------------------- |
-| key        |                               | **Required:** a string that represents your cache key           |
-| token      | `${{ secrets.GITHUB_TOKEN }}` | Access token to use for api authentication                      |
-| repository | `${{ github.repository }}`    | What repository to use. Defaults to the current context         |
-| fail_exit  | `false`                       | Fail the job if the key doesn't exist in cache (`true`/`false`) |
+| Variable   | Default | Description                                                           |
+| :--------- | :------ | :-------------------------------------------------------------------- |
+| key        |         | **Required:** a string that represents your cache key                 |
+| token      |         | **Required:** access token to use for api authentication              |
+| repository |         | **Required:** what repository to use. Defaults to the current context |
+| fail_exit  | `false` | Fail the job if the key doesn't exist in cache (`true`/`false`)       |
 
 ## Output
 

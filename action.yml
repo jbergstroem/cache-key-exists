@@ -7,11 +7,9 @@ inputs:
     description: The key to check for in Github Actions cache
     required: true
   token:
-    default: ${{ secrets.GITHUB_TOKEN }}
-    description: The key to check for in Github Actions cache
+    description: Your Github Actions Bearer token
     required: true
   repository:
-    default: ${{ github.repository }}
     description: The key to check for in Github Actions cache
     required: true
   fail_exit:

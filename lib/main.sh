@@ -2,9 +2,9 @@
 
 GITHUB_OUTPUT=${GITHUB_OUTPUT:-/dev/null}
 
-key=""
-token=${token:-'${{ secrets.GITHUB_TOKEN }}'}
-repository=${repository:-'${{ github.repository }}'}
+key="${key}"
+token="${token}"
+repository="${repository}"
 fail_exit=${fail_exit:-"false"}
 github_api_url=${github_api_url:-"https://api.github.com"}
 
