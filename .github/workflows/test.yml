@@ -1,0 +1,21 @@
+name: Test
+on:
+  pull_request:
+    paths:
+      - "**.sh"
+      - "test/**"
+      - "action.yml"
+      - ".github/workflows/test.yml"
+
+jobs:
+  bash_unit:
+    name: Bash unit tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install bash_unit
+        env:
+          version: "v2.1.0"
+        run: curl -Ls "https://github.com/pgrange/bash_unit/archive/refs/tags/${{ env.version }}.tar.gz" | tar -x -z --wildcards --strip-components=1 -C /usr/local/bin "*/bash_unit"
+      - name: Run suite
+        run: bash_unit test/*.sh
