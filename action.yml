@@ -14,7 +14,6 @@ inputs:
     default: ${{ github.repository }}
     description: The key to check for in Github Actions cache
     required: true
-
   fail_exit:
     default: "false"
     description: Fail the job if the key doesn't exist in cache (`true`/`false`)
@@ -36,6 +35,7 @@ runs:
         token: ${{ inputs.token }}
         repository: ${{ inputs.repository }}
         fail_exit: ${{ inputs.fail_exit }}
+        github_api_url: ${{ github.api_url }}
       run: ${{ github.action_path }}/cache-key-exists.sh
 
 branding:
