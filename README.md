@@ -38,12 +38,12 @@ jobs:
 
 ## Parameters
 
-| Variable   | Default | Description                                                           |
-| :--------- | :------ | :-------------------------------------------------------------------- |
-| key        |         | **Required:** a string that represents your cache key                 |
-| token      |         | **Required:** access token to use for api authentication              |
-| repository |         | **Required:** what repository to use. Defaults to the current context |
-| fail_exit  | `false` | Fail the job if the key doesn't exist in cache (`true`/`false`)       |
+| Variable   | Default | Required | Description                                               |
+| :--------- | :------ | :------- | :-------------------------------------------------------- |
+| key        |         | Yes      | A string that represents your cache key                   |
+| token      |         | Yes      | Access token to use for api authentication                |
+| repository |         | Yes      | Which repository to use - defaults to the current context |
+| fail_exit  | `false` |          | Fail job if key is missing from cache (`true`/`false`)    |
 
 ## Output
 
