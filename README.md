@@ -1,6 +1,6 @@
 # cache-key-exists
 
-Peek into the Github action cache and see if a certain key exists.
+Find out if a key exists in the Github Actions cache.
 
 The default behavior of [actions/cache][gh-cache] is to download the cache if it exists and give you
 an output to test against. This action allows you to bypass the download/restore part and instantly
@@ -40,7 +40,7 @@ jobs:
 | :--------- | :---------------------------- | :-------------------------------------------------------------- |
 | key        |                               | **Required:** a string that represents your cache key           |
 | token      | `${{ secrets.GITHUB_TOKEN }}` | Access token to use for api authentication                      |
-| repository | `${{ github.repository }}`    | What repository to use. Defaults to the current context      |
+| repository | `${{ github.repository }}`    | What repository to use. Defaults to the current context         |
 | fail_exit  | `false`                       | Fail the job if the key doesn't exist in cache (`true`/`false`) |
 
 ## Output
@@ -75,13 +75,14 @@ more tested way of achieving the same as above.
 
 ## Development
 
-This action is written in [Bash][bash] (needs 4 or later). It additionally uses [curl][curl] and [jq][jq]. For
-testing and validation purposes, [bash_unit][bash_unit], [shellcheck][shellcheck], [actionlint][actionlint] and [typos][typos] is also required.
+This action is written in [Bash][bash] (needs 4 or later). It additionally uses [curl][curl] and
+[jq][jq]. For testing and validation purposes, [bash_unit][bash_unit], [shellcheck][shellcheck],
+[shfmt][shfmt], [actionlint][actionlint] and [typos][typos] is also required.
 
 If you're using [Homebrew][brew], here's a oneliner:
 
 ```shell
-brew install bash curl jq bash_unit shellcheck actionlint typos-cli
+brew install bash curl jq bash_unit shellcheck shfmt actionlint typos-cli
 ```
 
 ### Running tests
@@ -100,6 +101,7 @@ End to end tests are run in Github Actions.
 [jq]: https://stedolan.github.io/jq/
 [bash_unit]: https://github.com/pgrange/bash_unit
 [shellcheck]: https://www.shellcheck.net
+[shfmt]: https://github.com/mvdan/sh
 [actionlint]: https://github.com/rhysd/actionlint
 [typos]: https://crates.io/crates/typos-cli
 [brew]: https://brew.sh
