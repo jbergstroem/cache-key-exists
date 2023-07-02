@@ -60,7 +60,7 @@ You can use the output `cache-hit` to check if the key exists in the cache:
 
 ## Under the hood
 
-The core of this action is more or less a curl one-liner - feel free to use this directly:
+The core of this action is [more or less a curl one-liner][curl.sh] - feel free to use this directly:
 
 ```shell
 export KEY="${{ runner.os }}-node-deps-${{ hashFiles('pnpm-lock.yaml') }}"
@@ -98,6 +98,7 @@ bash_unit test/*.sh
 End to end tests are run in Github Actions.
 
 [gh-cache]: https://github.com/actions/cache
+[curl.sh]: ./lib/curl.sh
 [bash]: https://www.gnu.org/software/bash/
 [curl]: https://curl.se/
 [jq]: https://stedolan.github.io/jq/
