@@ -37,6 +37,11 @@ mock_cache_miss='{
   "actions_caches": []
 }'
 
+mock_invalid_repo='{
+  "message": "Not Found",
+  "documentation_url": "https://docs.github.com/rest/actions/cache#list-github-actions-caches-for-a-repository"
+}'
+
 # shellcheck source=lib/main.sh
 . ../lib/main.sh
 # shellcheck source=lib/curl.sh

@@ -35,18 +35,22 @@ function run() {
   [[ -z "${repository}" ]] && exit_with_error "Missing repository to check cache for. Set it and try again."
   validate_fail_exit "${fail_exit}" || exit_with_error "Invalid fail_exit value: ${fail_exit}"
 
-  echo "::debug::Looking for cache key: ${key} in ${repository}"
+  echo "::notice::Looking for cache key: ${key} in ${repository}"
   local url="${github_api_url}/repos/${repository}/actions/caches"
   local result=$(run_curl "${url}" "${token}" "${key}")
+  if [[ $(echo "${result}" | jq -r 'has("message")') == "true" ]]; then
+    echo "::notice::could not retrieve cache results: $(echo "${result}" | jq -r '.message')"
+    [[ "${fail_exit}" == "true" ]] && exit 1 || exit 0
+  fi
   local usage_count=$(echo "${result}" | jq -r '.total_count')
   if [[ ${usage_count} -eq 0 ]]; then
-    echo "::info::could not find a cache for key: ${key}"
+    echo "::notice::could not find a cache for key: ${key}"
     echo "cache-hit=false" >>"$GITHUB_OUTPUT"
     [[ "${fail_exit}" == "true" ]] && exit 1 || exit 0
   else
     local last_accessed="$(echo ${result} | jq -r '.actions_caches | sort_by(.last_accessed_at) | reverse | first | .last_accessed_at')"
     echo "cache-hit=true" >>"$GITHUB_OUTPUT"
-    echo "::info::found cache for key: ${key} last accessed at: ${last_accessed}"
+    echo "::notice::found a cache last accessed at: ${last_accessed}"
     exit 0
   fi
 }
