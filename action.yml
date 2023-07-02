@@ -1,0 +1,43 @@
+name: "Cache Key Exists"
+description: "Find out if a key exists in the Github Actions cache"
+author: "Johan Bergström <bugs@bergstroem.nu>"
+
+inputs:
+  key:
+    description: The key to check for in Github Actions cache
+    required: true
+  token:
+    default: ${{ secrets.GITHUB_TOKEN }}
+    description: The key to check for in Github Actions cache
+    required: true
+  repository:
+    default: ${{ github.repository }}
+    description: The key to check for in Github Actions cache
+    required: true
+
+  fail_exit:
+    default: "false"
+    description: Fail the job if the key doesn't exist in cache (`true`/`false`)
+    required: true
+
+outputs:
+  cache-hit:
+    description: Whether the key exists in cache or not
+    value: ${{ steps.run.outputs.cache-hit }}
+
+runs:
+  using: composite
+  steps:
+    - name: Check if cache key exists
+      id: run
+      shell: bash
+      env:
+        key: ${{ inputs.key }}
+        token: ${{ inputs.token }}
+        repository: ${{ inputs.repository }}
+        fail_exit: ${{ inputs.fail_exit }}
+      run: ${{ github.action_path }}/cache-key-exists.sh
+
+branding:
+  icon: "search"
+  color: "yellow"
