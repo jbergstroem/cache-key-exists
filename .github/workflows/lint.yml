@@ -48,9 +48,10 @@ jobs:
           version: "0.9.0"
         run: curl -Ls "https://github.com/koalaman/shellcheck/releases/download/v${{ env.version }}/shellcheck-v${{ env.version }}.linux.x86_64.tar.xz" | sudo tar -x -J --wildcards --strip-components=1 -C /usr/local/bin "shellcheck*/shellcheck"
       - name: Verify shell scripts
+        shell: bash
         run: |
           echo "::add-matcher::.github/matcher-shellcheck.json"
-          shellcheck -f gcc -S warning hadolint.sh lib/*.sh test/*.sh
+          shellcheck -f gcc -S warning ./**/*.sh
 
   shfmt:
     name: Shfmt
@@ -62,11 +63,12 @@ jobs:
           version: "3.7.0"
         run: curl -Ls -o shfmt "https://github.com/mvdan/sh/releases/download/v${{ env.version }}/shfmt_v${{ env.version }}_linux_amd64" && chmod +x shfmt && sudo mv shfmt /usr/local/bin
       - name: Lint shell scripts
-        run: shfmt -i 2 -d hadolint.sh lib/*.sh test/*.sh
+        shell: bash
+        run: shfmt -i 2 -d ./**/*.sh
 
   typos:
     name: Check for language typos
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - uses: crate-ci/typos@v1.15.6
+      - uses: crate-ci/typos@v1.15.10
