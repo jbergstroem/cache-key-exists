@@ -10,7 +10,5 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 . "${DIR}"/lib/main.sh
 # shellcheck source=lib/curl.sh
 . "${DIR}"/lib/curl.sh
-# shellcheck source=lib/validate.sh
-. "${DIR}"/lib/validate.sh
 
 run

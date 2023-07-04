@@ -79,7 +79,7 @@ more tested way of achieving the same as above.
 
 This action is written in [Bash][bash] (needs 4 or later). It additionally uses [curl][curl] and
 [jq][jq]. For testing and validation purposes, [bash_unit][bash_unit], [shellcheck][shellcheck],
-[shfmt][shfmt], [actionlint][actionlint] and [typos][typos] is also required.
+[shfmt][shfmt], [actionlint][actionlint] and [typos][typos] are also required.
 
 If you're using [Homebrew][brew], here's a oneliner:
 
