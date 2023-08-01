@@ -1,5 +1,8 @@
 # cache-key-exists
 
+> **Warning**
+> This action is deprecated. The official cache action has similar functionality: https://github.com/actions/cache/tree/main/restore#inputs (`lookup-only`)
+
 Find out if a key exists in the Github Actions cache.
 
 The default behavior of [actions/cache][gh-cache] is to download the cache if it exists and give you
